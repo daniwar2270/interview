@@ -1,0 +1,307 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "meetings update/edit with Swagger",
+      "description": "",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "meetings",
+        "description": "API for meetings"
+      }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+  
+
+  
+    "paths": {
+        "/meetings/{meetId}": {
+        "delete": {
+            "summary": "Delete meetings with meeting Id",
+            "tags": ["Meetings"],
+            "responses": {
+              "200": {
+                "description": "meeting is deleted",
+                "schema": {
+                  "$ref": "#/definitions/meetings"
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "meetId",
+              "in": "path",
+              "required": true,
+              "description": "delete meeting by Id",
+              "type": "string"
+            }
+          ]
+        },
+      "/meetings": {
+        "get": {
+          "tags": ["Meetings"],
+          "summary": "Get all meetings from db",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/meetings"
+              }
+            }
+          }
+        }
+      },
+      "/meetings/{userName}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "path",
+            "required": true,
+            "description": "display all meetings for a user",
+            "type": "string"
+          }
+        ],
+        "get": {
+            "tags": ["Meetings"],
+            "summary": "Get meetings for user",
+            "responses": {
+              "200": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/definitions/meetings"
+                }
+              }
+            }
+          }
+          
+      
+    },
+    "/meetings/{owner}/{startDate}":{
+        "parameters": [
+            {
+                "name": "owner",
+                "in": "path",
+                "description": "meeting find",
+                "schema": {
+                  "$ref": "#/definitions/meetings"
+            }
+            },
+            {
+                "name": "startDate",
+                "in": "path",
+                "description": "meeting find",
+                "schema": {
+                  "$ref": "#/definitions/meetings"
+            }
+        }
+        
+          ],
+          "get": {
+              "tags": ["Meetings"],
+              "summary": "Get meetings for user for a date",
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "schema": {
+                    "$ref": "#/definitions/meetings"
+                  }
+                }
+              }
+            }
+    },
+    "/meeting": {
+        "post": {
+          "tags": ["Meetings"],
+          "description": "Add new meeting",
+          "parameters": [
+            {
+                "name": "meetings",
+                "in": "body",
+                "description": "meeting creation",
+                "schema": {
+                  "$ref": "#/definitions/meetingAdd"
+            }
+        }
+
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "New meeting created",
+              "schema": {
+                "$ref": "#/definitions/meetingAdd"
+              }
+            }
+          }
+        }
+      },
+
+
+      "/meetingsU": {
+        
+        "put": {
+        "summary": "Update meeting",
+          "tags": ["Meetings"],
+          "description": "UPDATE meeting",
+          "parameters": [
+            {
+                "name": "meetings",
+                "in": "body",
+                "description": "meeting update",
+                "schema": {
+                  "$ref": "#/definitions/meetingUpdate"
+            }
+        }
+
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "meeting updated!",
+              "schema": {
+                "$ref": "#/definitions/meetings"
+              }
+            }
+          }
+        }
+        
+      }
+
+},
+    
+    
+    "definitions": {
+      "meetings": {
+        "required": ["id","owner", "title", "startDate","startTime","endDate","endTime","roomNumber"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "uniqueItems": true
+          },
+          "owner": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+            
+          },
+          "startTime": {
+            "type": "string"
+            
+          },
+          "endDate": {
+            "type": "string"
+            
+          },
+          "endTime": {
+            "type": "string"
+            
+          },
+          "roomNumber": {
+            "type": "integer"
+            
+          }
+        }
+      },
+      "meetingAdd":{
+        "required": ["owner", "title", "startDate","startTime","endDate","endTime","roomNumber"],
+        "properties": {
+          
+          "owner": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+            
+          },
+          "startTime": {
+            "type": "string"
+            
+          },
+          "endDate": {
+            "type": "string"
+            
+          },
+          "endTime": {
+            "type": "string"
+            
+          },
+          "roomNumber": {
+            "type": "integer"
+            
+          }
+        }
+      },
+      "meetingUpdate":{
+        "required": ["id","owner", "title", "startDate","startTime","endDate","endTime","roomNumber"],
+        "properties": {
+          
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+            
+          },
+          "startTime": {
+            "type": "string"
+            
+          },
+          "endDate": {
+            "type": "string"
+            
+          },
+          "endTime": {
+            "type": "string"
+            
+          },
+          "roomNumber": {
+            "type": "integer"
+            
+          }
+        }
+
+      },
+      "meetingsbyDate":{
+        "required": ["owner", "startDate"],
+        "properties": {
+          
+          "owner": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+            
+          }
+         
+        }
+      },
+
+
+      "meetingsArr": {
+        "type": "array",
+        "$ref": "#/definitions/meetings"
+      }
+    }
+    
+    
+  }
